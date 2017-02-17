@@ -11,7 +11,7 @@
     tools:context="com.mobileapp.design1.cuppasta.AboutUs"
     android:weightSum="1"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryDark">
+    android:background="@android:color/darker_gray">
 
     <LinearLayout
         android:orientation="horizontal"
