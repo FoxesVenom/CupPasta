@@ -16,31 +16,31 @@
 
         <Button
             android:text="Order"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:id="@+id/button22"
-            android:layout_weight="0.26" />
+            android:layout_weight="0.26"
+            android:layout_width="385dp" />
 
         <Button
             android:text="About Us"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:id="@+id/button13"
-            android:layout_weight="0.24" />
+            android:layout_weight="0.24"
+            android:layout_width="385dp" />
 
         <Button
             android:text="Coupons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:id="@+id/button12"
-            android:layout_weight="0.25" />
+            android:layout_weight="0.25"
+            android:layout_width="385dp" />
 
         <Button
             android:text="My Profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:id="@+id/button23"
-            android:layout_weight="0.22" />
+            android:layout_weight="0.22"
+            android:layout_width="385dp" />
     </LinearLayout>
 
 </LinearLayout>
