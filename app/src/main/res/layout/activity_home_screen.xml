@@ -11,57 +11,29 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:weightSum="1">
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <Button
+            android:text="Button"
             android:layout_width="match_parent"
-            android:layout_height="223dp"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="16dp"
-            >
+            android:layout_height="wrap_content"
+            android:id="@+id/button22"
+            android:layout_weight="0.29" />
 
-            <Button
-                android:text="Order"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/button6"
-                android:elevation="0dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
+        <Button
+            android:text="Button"
             android:layout_width="match_parent"
-            android:layout_height="177dp"
-            android:weightSum="1">
+            android:layout_height="wrap_content"
+            android:id="@+id/button13"
+            android:layout_weight="0.33" />
 
-            <Button
-                android:text="About Us"
-                android:layout_height="match_parent"
-                android:id="@+id/button5"
-                android:layout_width="match_parent"
-                android:layout_weight="0.96" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
+        <Button
+            android:text="Button"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="16dp"
-            >
-
-            <Button
-                android:text="Rewards"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/button4" />
-        </LinearLayout>
-
+            android:layout_height="wrap_content"
+            android:id="@+id/button12"
+            android:layout_weight="0.29" />
     </LinearLayout>
 
 </LinearLayout>
