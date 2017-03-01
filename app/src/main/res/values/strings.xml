@@ -23,5 +23,17 @@
         <item>Pesto</item>
     </string-array>
 
+    <string-array name="dessert">
+        <item>Tiramisu</item>
+        <item>Chocolate Mousse</item>
+        <item>Cannoli(Mini)</item>
+    </string-array>
+
+    <string-array name="panini">
+        <item>Ciabatta Al Prosciutto Cotto</item>
+        <item>Ciabatta Al Prosciutto Crudo</item>
+        <item>Ciabatta Al Salame</item>
+    </string-array>
+
 </resources>
 

@@ -14,62 +14,214 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_weight="0.67">
 
-        <TextView
-            android:text="Pasta"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView6"
-            android:layout_weight="1"
-            tools:text="Pasta"
-            android:textStyle="normal|bold"
-            android:textColor="@android:color/black" />
+            android:layout_height="match_parent"
+            android:layout_weight="1.15">
 
-        <Spinner
-        android:layout_width="match_parent"
-        android:id="@+id/spinner"
-        android:entries="@array/pasta"
-        android:layout_weight="1"
-        android:layout_height="100dp" />
-
-        <TextView
-            android:text="Sauce"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView5"
-            android:layout_weight="1"
-            android:textStyle="normal|bold"
-            tools:text="Sauce"
-            tools:textColor="@android:color/black" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:id="@+id/spinner1"
-            android:entries="@array/sauce"
-            android:layout_weight="1"
-            android:layout_height="100dp" />
-
-        <TextView
-            android:text="Serving"
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:id="@+id/textView3"
-            android:layout_weight="1"
-            tools:text="Serving"
-            android:textStyle="normal|bold"
-            tools:textColor="@android:color/black" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/editText2"
-            android:layout_weight="1"
-            android:hint="Enter number of people you want to serve..." />
-
+            <TextView
+                android:text="Order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView7"
+                android:layout_weight=".1"
+                android:textSize="24sp"
+                android:textStyle="normal|bold"
+                android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Pasta"
+                android:layout_width="match_parent"
+                android:id="@+id/textView6"
+                android:layout_weight="2"
+                tools:text="Pasta"
+                android:textStyle="normal|bold"
+                android:textColor="@android:color/black"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:text="Select a Pasta"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/Pasta2"
+                android:layout_weight="2"
+                tools:text="Select a Pasta"
+                android:textStyle="normal|bold"
+                tools:textColor="@android:color/darker_gray" />
+
+            <Spinner
+            android:layout_width="match_parent"
+            android:id="@+id/spinner"
+            android:entries="@array/pasta"
+            android:layout_weight="2"
+                android:layout_height="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Sauce"
+                android:layout_width="match_parent"
+                android:id="@+id/textView5"
+                android:layout_weight="2"
+                android:textStyle="normal|bold"
+                tools:text="Sauce"
+                tools:textColor="@android:color/black"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:text="Select a Sauce"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/sauce2"
+                android:layout_weight="2"
+                tools:text="Select a Sauce"
+                android:textStyle="normal|bold"
+                tools:textColor="@android:color/darker_gray" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:id="@+id/spinner1"
+                android:entries="@array/sauce"
+                android:layout_weight="2"
+                android:layout_height="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Panini"
+                android:layout_width="match_parent"
+                android:id="@+id/panini"
+                android:layout_weight="2"
+                android:textStyle="normal|bold"
+                tools:text="Panini"
+                tools:textColor="@android:color/black"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:text="Select a Panini"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/panini2"
+                android:layout_weight="2"
+                tools:text="Select a Panini"
+                android:textStyle="normal|bold"
+                tools:textColor="@android:color/darker_gray" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:id="@+id/paninio"
+                android:entries="@array/panini"
+                android:layout_weight="2"
+                android:layout_height="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Dessert"
+                android:layout_width="match_parent"
+                android:id="@+id/dessert"
+                android:layout_weight="2"
+                android:textStyle="normal|bold"
+                tools:text="Dessert"
+                tools:textColor="@android:color/black"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:text="Select a Dessert"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/dessert2"
+                android:layout_weight="2"
+                tools:text="Select a Dessert"
+                android:textStyle="normal|bold"
+                tools:textColor="@android:color/darker_gray" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:id="@+id/desserto"
+                android:entries="@array/dessert"
+                android:layout_weight="2"
+                android:layout_height="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Serving"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/textView3"
+                android:layout_weight="2"
+                tools:text="Serving"
+                android:textStyle="normal|bold"
+                tools:textColor="@android:color/black" />
+
+            <TextView
+                android:text="How many people do you plan to serve?"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/serving2"
+                android:layout_weight="2"
+                tools:text="How many people do you plan to serve?"
+                android:textStyle="normal|bold"
+                tools:textColor="@android:color/darker_gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editText2"
+                android:layout_weight="2"
+                android:hint="Enter number of people you want to serve..." />
+        </LinearLayout>
+
+
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.00001">
+
+        <Button
+            android:text="Submit Order"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/button"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</LinearLayout>
 
