@@ -3,5 +3,25 @@
     <string name="app_name">CupPasta</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
+    <string-array name="pasta">
+        <item>Mamma Rosa</item>
+        <item>Spaghetti</item>
+        <item>Rigatoni</item>
+        <item>Fiorellini</item>
+        <item>Tromboni</item>
+        <item>Fusilli</item>
+        <item>Gnocchi</item>
+    </string-array>
+
+    <string-array name="sauce">
+        <item>Mamma Rosa</item>
+        <item>Bolognese</item>
+        <item>CupPasta</item>
+        <item>Broccollini</item>
+        <item>Boscaiola</item>
+        <item>Vodka Sauce</item>
+        <item>Pesto</item>
+    </string-array>
+
 </resources>
 

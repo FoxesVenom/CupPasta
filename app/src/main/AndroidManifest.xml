@@ -16,8 +16,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomeScreen" />
-        <activity android:name=".AboutUs"></activity>
-        <activity android:name=".OrderScreen"></activity>
+        <activity android:name=".AboutUs" />
+        <activity android:name=".OrderScreen" />
+        <activity android:name=".order"></activity>
     </application>
 
 </manifest>
