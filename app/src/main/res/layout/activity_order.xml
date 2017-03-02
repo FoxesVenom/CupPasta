@@ -62,7 +62,7 @@
 
             <Spinner
             android:layout_width="match_parent"
-            android:id="@+id/spinner"
+            android:id="@+id/pastaspinner"
             android:entries="@array/pasta"
             android:layout_weight="2"
                 android:layout_height="10dp" />
@@ -96,7 +96,7 @@
 
             <Spinner
                 android:layout_width="match_parent"
-                android:id="@+id/spinner1"
+                android:id="@+id/saucespinner"
                 android:entries="@array/sauce"
                 android:layout_weight="2"
                 android:layout_height="10dp" />
@@ -130,7 +130,7 @@
 
             <Spinner
                 android:layout_width="match_parent"
-                android:id="@+id/paninio"
+                android:id="@+id/paninispinner"
                 android:entries="@array/panini"
                 android:layout_weight="2"
                 android:layout_height="10dp" />

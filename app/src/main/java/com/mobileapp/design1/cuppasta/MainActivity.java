@@ -19,4 +19,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomeScreen.class);
         startActivity(intent);
     }
+
+    public void gotoReg(View view)
+    {
+        Intent reg = new Intent(this, Reg.class);
+        startActivity(reg);
+    }
 }

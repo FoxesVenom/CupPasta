@@ -54,6 +54,14 @@
             android:layout_width="match_parent"
             tools:text="Log In"
             android:onClick="gotoHome"/>
+
+        <Button
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:layout_weight="0.09"
+            android:layout_width="match_parent"
+            tools:text="Register"
+            android:onClick="gotoReg"/>
     </LinearLayout>
 
 </LinearLayout>
