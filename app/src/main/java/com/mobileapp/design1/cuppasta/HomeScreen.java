@@ -30,4 +30,10 @@ public class HomeScreen extends AppCompatActivity {
         Intent rewards = new Intent(this, Rewards.class);
         startActivity(rewards);
     }
+
+    public void edit(View view)
+    {
+        Intent edit = new Intent(this, EditAccount.class);
+        startActivity(edit);
+    }
 }

@@ -164,7 +164,7 @@
 
             <Spinner
                 android:layout_width="match_parent"
-                android:id="@+id/desserto"
+                android:id="@+id/dessertspinner"
                 android:entries="@array/dessert"
                 android:layout_weight="2"
                 android:layout_height="10dp" />
@@ -201,7 +201,7 @@
                 android:layout_height="20dp"
                 android:inputType="number"
                 android:ems="10"
-                android:id="@+id/editText2"
+                android:id="@+id/num"
                 android:layout_weight="2"
                 android:hint="Enter number of people you want to serve..." />
         </LinearLayout>
@@ -220,7 +220,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/button"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="Confirm"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -19,7 +19,11 @@
         <activity android:name=".AboutUs" />
         <activity android:name=".OrderScreen" />
         <activity android:name=".order" />
-        <activity android:name=".Reg"></activity>
+        <activity android:name=".Reg" />
+        <activity android:name=".Confirm" />
+        <activity android:name=".Rewards"/>
+        <activity android:name=".EditAccount">
+        </activity>
     </application>
 
 </manifest>

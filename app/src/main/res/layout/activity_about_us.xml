@@ -35,7 +35,7 @@
         android:layout_weight="3.20">
 
         <TextView
-            android:text="CupPasta is a business where we."
+            android:text="Here at CupPasta the customer is always right; we center our business around your experience and customize any gathering or event to your specifications. We look forward to making sure every event you have is spectacular and hope you enjoy our new catering application.\n\nWelcome to our family!"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
