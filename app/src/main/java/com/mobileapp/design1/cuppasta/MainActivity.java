@@ -1,108 +1,138 @@
 package com.mobileapp.design1.cuppasta;
 
-import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.widget.AppCompatButton;
+import android.view.Menu;
 import android.widget.Button;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.util.HashMap;
+import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText editTextFname;
-    private EditText editTextLname;
-    private EditText editTextPassword;
+    //Defining views
     private EditText editTextEmail;
-    private EditText editTextPhone;
+    private EditText editTextPassword;
+    private Button buttonLogin;
 
-    private Button buttonRegister;
-
-    private static final String REGISTER_URL = "http://173.170.13.161/register.php"; //change once AWS is up
-
+    //boolean variable to check user is logged in or not
+    //initially it is false
+    private boolean loggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reg);
+        setContentView(R.layout.activity_main);
 
-        editTextFname = (EditText) findViewById(R.id.new_FNAME);
-        editTextLname = (EditText) findViewById(R.id.new_LNAME);
-        editTextEmail = (EditText) findViewById(R.id.new_EMAIL);
-        editTextPassword = (EditText) findViewById(R.id.new_PASS);
-        editTextPhone = (EditText) findViewById(R.id.new_PHONE);
+        //Initializing views
+        editTextEmail = (EditText) findViewById(R.id.Email);
+        editTextPassword = (EditText) findViewById(R.id.Password);
 
-        buttonRegister = (Button) findViewById(R.id.Reg_Button);
+        buttonLogin = (Button) findViewById(R.id.Login);
 
-        buttonRegister.setOnClickListener(this);
+        //Adding click listener
+        buttonLogin.setOnClickListener(this);
     }
-    public void gotoHome(View view)
-        {
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //In onresume fetching value from sharedpreference
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME,Context.MODE_PRIVATE);
+
+        //Fetching the boolean value form sharedpreferences
+        loggedIn = sharedPreferences.getBoolean(Config.LOGGEDIN_SHARED_PREF, false);
+
+        //If we will get true
+        if(loggedIn){
+            //We will start the Profile Activity
             Intent intent = new Intent(this, HomeScreen.class);
             startActivity(intent);
         }
+    }
 
-        public void gotoReg(View view)
-        {
-            Intent reg = new Intent(this, Reg.class);
-            startActivity(reg);
-        }
+    public void gotoReg(View view)
+    {
+        Intent reg = new Intent(this, Reg.class);
+        startActivity(reg);
+    }
+
+    private void login(){
+        //Getting values from edit texts
+        final String email = editTextEmail.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
+
+        //Creating a string request
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.LOGIN_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //If we are getting success from server
+                        if(response.trim().equalsIgnoreCase(Config.LOGIN_SUCCESS)){
+                            //Creating a shared preference
+                            SharedPreferences sharedPreferences = MainActivity.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+                            //Creating editor to store values to shared preferences
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                            //Adding values to editor
+                            editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
+                            editor.putString(Config.EMAIL_SHARED_PREF, email);
+
+                            //Saving values to editor
+                            editor.commit();
+
+                            //Starting profile activity
+                            Intent intent = new Intent(MainActivity.this, HomeScreen.class);
+                            startActivity(intent);
+                        }else{
+                            //If the server response is not success
+                            //Displaying an error message on toast
+                            Toast.makeText(MainActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //You can handle error here if you want
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                //Adding parameters to request
+                params.put(Config.KEY_EMAIL, email);
+                params.put(Config.KEY_PASSWORD, password);
+
+                //returning parameter
+                return params;
+            }
+        };
+
+        //Adding the string request to the queue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
     @Override
     public void onClick(View v) {
-        if(v == buttonRegister){
-            registerUser();
-        }
-    }
-
-    private void registerUser() {
-        String CUS_FNAME = editTextFname.getText().toString().trim().toLowerCase();
-        String CUS_LNAME = editTextLname.getText().toString().trim().toLowerCase();
-        String CUS_PHONE = editTextPhone.getText().toString().trim().toLowerCase();
-        String CUS_PASS = editTextPassword.getText().toString().trim().toLowerCase();
-        String CUS_EMAIL = editTextEmail.getText().toString().trim().toLowerCase();
-
-        register(CUS_FNAME,CUS_LNAME,CUS_PHONE,CUS_PASS,CUS_EMAIL);
-    }
-
-    private void register(String CUS_FNAME, String CUS_LNAME, String CUS_PHONE, String CUS_PASS, String CUS_EMAIL) {
-        class RegisterUser extends AsyncTask<String, Void, String>{
-            ProgressDialog loading;
-            RegisterUserClass ruc = new RegisterUserClass();
-
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                loading = ProgressDialog.show(MainActivity.this, "Please Wait",null, true, true);
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                loading.dismiss();
-                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            protected String doInBackground(String... params) {
-
-                HashMap<String, String> data = new HashMap<String,String>();
-                data.put("CUS_FNAME",params[0]);
-                data.put("CUS_LNAME",params[1]);
-                data.put("CUS_EMAIL",params[2]);
-                data.put("CUS_PASS",params[3]);
-                data.put("CUS_PHONE",params[4]);
-
-                String result = ruc.sendPostRequest(REGISTER_URL,data);
-
-                return  result;
-            }
-        }
-
-        RegisterUser ru = new RegisterUser();
-        ru.execute(CUS_FNAME,CUS_LNAME,CUS_EMAIL,CUS_PASS,CUS_PHONE);
+        //Calling the login function
+        login();
     }
 }

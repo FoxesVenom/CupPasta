@@ -4,6 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 
 public class HomeScreen extends AppCompatActivity {
 
@@ -35,5 +40,40 @@ public class HomeScreen extends AppCompatActivity {
     {
         Intent edit = new Intent(this, EditAccount.class);
         startActivity(edit);
+    }
+
+    private void logout(){
+        SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        //Getting editor
+        SharedPreferences.Editor editor = preferences.edit();
+
+        //Puting the value false for loggedin
+        editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, false);
+
+        //Putting blank value to email
+        editor.putString(Config.EMAIL_SHARED_PREF, "");
+
+        //Saving the sharedpreferences
+        editor.commit();
+
+        //Starting login activity
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //Adding our menu to toolbar
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menuLogout) {
+            //calling logout method when the logout button is clicked
+            logout();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
