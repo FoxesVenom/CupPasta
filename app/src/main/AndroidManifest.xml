@@ -17,7 +17,6 @@
         </activity>
         <activity android:name=".HomeScreen" />
         <activity android:name=".AboutUs" />
-        <activity android:name=".OrderScreen" />
         <activity android:name=".order" />
         <activity android:name=".Reg" />
         <activity android:name=".Confirm" />
