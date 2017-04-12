@@ -1,5 +1,6 @@
 package com.mobileapp.design1.cuppasta;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,15 @@ import android.os.AsyncTask;
 import android.widget.Button;
 import android.widget.Toast;
 import java.util.HashMap;
+import android.content.SharedPreferences;
+import java.util.Map;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 
 /* LEAVE UNTIL DETERMINED NO LONGER NEEDED FOR REFERENCE
@@ -63,7 +73,7 @@ public class order extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        email = (EditText) findViewById(R.id.Email);
+        //email = (EditText) Config.KEY_EMAIL;
         setContentView(R.layout.activity_order);
 
         pastaspinner = (Spinner) findViewById(R.id.pastaspinner);
@@ -98,12 +108,15 @@ public class order extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void submitOrder() {
+        SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        String storedPreference = preferences.getString(Config.EMAIL_SHARED_PREF, "");
+
         String pastaspinner_data = pastaspinner.getSelectedItem().toString();
         String saucespinner_data = saucespinner.getSelectedItem().toString();
         String paninispinner_data = paninispinner.getSelectedItem().toString();
         String dessertspinner_data = dessertspinner.getSelectedItem().toString();
         String num_data = num.getText().toString();
-        String CUS_EMAIL = email.getText().toString().trim().toLowerCase();
+        String CUS_EMAIL = storedPreference;
 
         ordering(pastaspinner_data,saucespinner_data,paninispinner_data,dessertspinner_data, num_data, CUS_EMAIL);
     }
