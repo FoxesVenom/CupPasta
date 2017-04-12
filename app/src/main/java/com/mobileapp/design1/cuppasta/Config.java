@@ -24,4 +24,32 @@ public class Config {
 
     //We will use this to store the boolean in sharedpreference to track user is loggedin or not
     public static final String LOGGEDIN_SHARED_PREF = "loggedin";
+
+    public static final String NAME = "NAME";
+
+    public static final String PASTA = "PASTA";
+
+    //We will use this to store the boolean in sharedpreference to track user is loggedin or not
+    public static final String PANINI = "PANINI";
+
+    public static final String SAUCE = "SAUCE";
+
+    //We will use this to store the boolean in sharedpreference to track user is loggedin or not
+    public static final String DESSERT = "DESSERT";
+
+    public static final String SERVE = "SERVE";
+
+    public static final String PHONE = "1234567890";
+
+    public static final String STREET = "STREET";
+
+    public static final String ZIP = "12345";
+
+    public static final String CITY = "CITY";
+
+    public static final String STATE = "STATE";
+
+    public static final String INVNUM = "0";
+
+    public static final String PAYMENT = "SERVE";
 }

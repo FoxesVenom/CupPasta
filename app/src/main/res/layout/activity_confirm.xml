@@ -12,15 +12,16 @@
     android:orientation="vertical">
 
     <TextView
-        android:text="Order Summary"
+        android:text="Catering Information"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView9"
         android:textSize="24sp"
         android:textColor="@color/colorPrimary"
-        android:textStyle="normal|bold" />
+        android:textStyle="normal|bold"
+        android:gravity="bottom"/>
 
-    <TextView
+    <!--<TextView
         android:text="PlaceHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,16 +38,99 @@
         android:id="@+id/Serve"
         android:textSize="18sp"
         android:textStyle="normal|bold"
-        android:textColor="@android:color/darker_gray" />
+        android:textColor="@android:color/darker_gray" />-->
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="bottom">
+        <TextView
+            android:text="Enter Street Address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/TextAdd"
+            tools:text="Enter Street Address"
+            android:textStyle="normal|bold"
+            tools:textColor="@android:color/darker_gray" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:ems="10"
+            android:id="@+id/Address"
+            android:hint="111 Street Name" />
 
         <TextView
-            android:text="Is Your Order Correct?"
+            android:text="Enter Zip Code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/TextZipCode"
+            tools:text="Enter Zip Code"
+            android:textStyle="normal|bold"
+            tools:textColor="@android:color/darker_gray" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/ZipCode"
+            android:hint="xxxxx" />
+
+        <TextView
+            android:text="Enter City"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/TextCity"
+            tools:text="Enter City"
+            android:textStyle="normal|bold"
+            tools:textColor="@android:color/darker_gray" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/City"
+            android:hint="City" />
+        <TextView
+            android:text="Enter State"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/TextState"
+            tools:text="Enter Zip Code"
+            android:textStyle="normal|bold"
+            tools:textColor="@android:color/darker_gray" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/State"
+            android:hint="State" />
+
+        <TextView
+            android:text="-"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/serving2"
+            tools:text="Enter Phone Number"
+            android:textStyle="normal|bold"
+            tools:textColor="@android:color/darker_gray" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/num"
+            android:hint="1112223333" />
+
+        <TextView
+            android:text="What method will you use to pay?"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ConfirmPrompt"
@@ -55,38 +139,38 @@
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-        <RadioButton
-            android:text="Yes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/Yes"
-            android:layout_toEndOf="@id/ConfirmPrompt"
-            android:layout_toRightOf="@id/ConfirmPrompt"
-            android:layout_gravity="bottom"/>
-        <RadioButton
-            android:text="No"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/No"
-            android:layout_toEndOf="@id/ConfirmPrompt"
-            android:layout_toRightOf="@id/ConfirmPrompt"
-            android:layout_gravity="bottom"/>
+            <RadioButton
+                android:text="Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/Card"
+                android:layout_toEndOf="@id/ConfirmPrompt"
+                android:layout_toRightOf="@id/ConfirmPrompt"
+                android:layout_gravity="bottom"/>
+            <RadioButton
+                android:text="Cash"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/Cash"
+                android:layout_toEndOf="@id/ConfirmPrompt"
+                android:layout_toRightOf="@id/ConfirmPrompt"
+                android:layout_gravity="bottom"/>
+            <RadioButton
+                android:text="Check"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/Check"
+                android:layout_toEndOf="@id/ConfirmPrompt"
+                android:layout_toRightOf="@id/ConfirmPrompt"
+                android:layout_gravity="bottom"/>
         </RadioGroup>
-        <CheckBox
-            android:text="Please call me to confirm my order and further customize my experience!"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/Customize"
-            android:layout_toEndOf="@id/ConfirmPrompt"
-            android:layout_toRightOf="@id/ConfirmPrompt"
-            android:layout_gravity="bottom"/>
+
 
         <Button
-            android:text="Confirm Order"
+            android:text="Send Catering Order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button3" />
-
+            android:id="@+id/buttonCat" />
 
     </LinearLayout>
 </LinearLayout>

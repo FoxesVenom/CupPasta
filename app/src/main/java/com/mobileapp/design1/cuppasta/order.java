@@ -21,6 +21,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+
 
 
 /* LEAVE UNTIL DETERMINED NO LONGER NEEDED FOR REFERENCE
@@ -63,6 +67,7 @@ public class order extends AppCompatActivity implements View.OnClickListener{
     private Spinner dessertspinner;
     private EditText num;
     private EditText email;
+    private String invoice;
 
     private Button buttonOrder;
 
@@ -118,6 +123,19 @@ public class order extends AppCompatActivity implements View.OnClickListener{
         String num_data = num.getText().toString();
         String CUS_EMAIL = storedPreference;
 
+        //Creating editor to store values to shared preferences
+        SharedPreferences.Editor editor = preferences.edit();
+
+        //Adding values to editor
+        editor.putString(Config.SERVE, num_data);
+        editor.putString(Config.PASTA, pastaspinner_data);
+        editor.putString(Config.PANINI, paninispinner_data);
+        editor.putString(Config.DESSERT, dessertspinner_data);
+        editor.putString(Config.SAUCE, saucespinner_data);
+
+        //Saving values to editor
+        editor.commit();
+
         ordering(pastaspinner_data,saucespinner_data,paninispinner_data,dessertspinner_data, num_data, CUS_EMAIL);
     }
 
@@ -137,11 +155,19 @@ public class order extends AppCompatActivity implements View.OnClickListener{
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 loading.dismiss();
+
+                if(s.trim().equalsIgnoreCase("Order has been successfully submitted")){
+                    Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+                    Intent ordering = new Intent(order.this, Confirm.class);
+                    startActivity(ordering);
+                }
                 Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
             }
 
             @Override
             protected String doInBackground(String... params) {
+
+
 
                 HashMap<String, String> data = new HashMap<String,String>();
                 data.put("Pasta",params[0]);
@@ -152,6 +178,23 @@ public class order extends AppCompatActivity implements View.OnClickListener{
                 data.put("CUS_EMAIL",params[5]);
 
                 String result = ruc.sendPostRequest(ORDER_URL,data);
+
+
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    result = jsonObject.getString("success");
+                    invoice = jsonObject.getString("invnum");
+                    SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME,Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+
+                    //Adding values to editor
+                    editor.putString(Config.INVNUM, invoice);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
 
                 return  result;
             }

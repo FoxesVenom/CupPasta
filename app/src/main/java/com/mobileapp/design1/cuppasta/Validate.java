@@ -12,12 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
 
-public class Confirm extends AppCompatActivity implements View.OnClickListener{
+public class Validate extends AppCompatActivity implements View.OnClickListener{
 
     private EditText Address;
     private EditText City;
@@ -32,27 +31,28 @@ public class Confirm extends AppCompatActivity implements View.OnClickListener{
     private EditText email;
     private Boolean pass2 = false;
 
-    private Button Cat;
-
-    private static final String CONFIRM_URL = "http://173.170.13.161/invoice.php"; //change once AWS is up
+    private Button Val;
+    private static final String CONFIRM_URL = "http://173.170.13.161/updateinv.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_confirm);
+        setContentView(R.layout.activity_validate);
+
+        SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        String storedPreference = preferences.getString(Config.EMAIL_SHARED_PREF, "");
+
+        City = (EditText) findViewById(R.id.City);
+        Zip = (EditText) findViewById(R.id.ZipCode);
+        State = (EditText) findViewById(R.id.State);
+        Phone = (EditText) findViewById(R.id.num);
+        Address = (EditText) findViewById(R.id.Address);
 
 
-            City = (EditText) findViewById(R.id.City);
-            Zip = (EditText) findViewById(R.id.ZipCode);
-            State = (EditText) findViewById(R.id.State);
-            Phone = (EditText) findViewById(R.id.num);
-            Address = (EditText) findViewById(R.id.Address);
 
+        Val = (Button) findViewById(R.id.Valid);
 
-
-            Cat = (Button) findViewById(R.id.buttonCat);
-
-            Cat.setOnClickListener(Confirm.this);
-        }
+        Val.setOnClickListener(Validate.this);
+    }
     public void gotoHome(View view)
     {
         Intent intent = new Intent(this, HomeScreen.class);
@@ -67,7 +67,7 @@ public class Confirm extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if(v == Cat){
+        if(v == Val){
             sendCat();
         }
     }
@@ -75,7 +75,7 @@ public class Confirm extends AppCompatActivity implements View.OnClickListener{
     private void sendCat() {
         radioGroup = (RadioGroup) findViewById(R.id.radio);
         SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String storedPreference = preferences.getString(Config.EMAIL_SHARED_PREF, "");
+        String storedPreference = preferences.getString(Config.INVNUM, "");
 
         pass2 = true;
         String address = Address.getText().toString();
@@ -83,7 +83,7 @@ public class Confirm extends AppCompatActivity implements View.OnClickListener{
         String state = State.getText().toString();
         String zip = Zip.getText().toString();
         String phone = Phone.getText().toString();
-        String CUS_EMAIL = storedPreference;
+        String inv = storedPreference;
 
 
         //Creating editor to store values to shared preferences
@@ -99,10 +99,10 @@ public class Confirm extends AppCompatActivity implements View.OnClickListener{
         //Saving values to editor
         editor.commit();
         String pass = Boolean.toString(pass2);
-        CatInfo(pass,address,city,state, zip, phone);
+        CatInfo(pass,address,city,state, zip, phone, inv);
     }
 
-    private void CatInfo(String pass, String address, String city, String state, String zip, String phone) {
+    private void CatInfo(String pass, String address, String city, String state, String zip, String phone, String inv) {
         class subCat extends AsyncTask<String, Void, String> {
             ProgressDialog loading;
             RegisterUserClass ruc = new RegisterUserClass();
@@ -111,7 +111,7 @@ public class Confirm extends AppCompatActivity implements View.OnClickListener{
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(Confirm.this, "Please Wait",null, true, true);
+                loading = ProgressDialog.show(Validate.this, "Please Wait",null, true, true);
             }
 
             @Override
@@ -119,7 +119,7 @@ public class Confirm extends AppCompatActivity implements View.OnClickListener{
                 super.onPostExecute(s);
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
-                Intent ordering = new Intent(Confirm.this, Validate.class);
+                Intent ordering = new Intent(Validate.this, Validate.class);
                 startActivity(ordering);
             }
 
@@ -133,6 +133,7 @@ public class Confirm extends AppCompatActivity implements View.OnClickListener{
                 data.put("State",params[3]);
                 data.put("Zip",params[4]);
                 data.put("Phone",params[5]);
+                data.put("inv",params[6]);
 
                 String result = ruc.sendPostRequest(CONFIRM_URL,data);
                 pass2 = false;
@@ -141,7 +142,6 @@ public class Confirm extends AppCompatActivity implements View.OnClickListener{
         }
 
         subCat ru = new subCat();
-        ru.execute(pass, address, city,state, zip, phone);
+        ru.execute(pass, address, city,state, zip, phone, inv);
     }
 }
-

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mobileapp.design1.cuppasta">
-<uses-permission android:name="android.permission.INTERNET"/> //may or may not work
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    //may or may not work
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,9 +22,9 @@
         <activity android:name=".order" />
         <activity android:name=".Reg" />
         <activity android:name=".Confirm" />
-        <activity android:name=".Rewards"/>
-        <activity android:name=".EditAccount">
-        </activity>
+        <activity android:name=".Rewards" />
+        <activity android:name=".EditAccount"></activity>
+        <activity android:name=".Validate"></activity>
     </application>
 
 </manifest>
