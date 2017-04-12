@@ -12,24 +12,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
 
 public class Validate extends AppCompatActivity implements View.OnClickListener{
 
-    private EditText Address;
-    private EditText City;
-    private EditText Zip;
-    private EditText State;
-    private EditText Phone;
-    private Spinner saucespinner;
-    private Spinner paninispinner;
-    private Spinner dessertspinner;
-    private RadioGroup radioGroup;
-    private EditText num;
-    private EditText email;
     private Boolean pass2 = false;
+    private String Email, Inv, Name, Street, City, State, Zip,Pasta, Sauce, Panini, Dessert, Party, Total;
+    private TextView address, summary, invoice, total;
+
 
     private Button Val;
     private static final String CONFIRM_URL = "http://173.170.13.161/updateinv.php";
@@ -39,15 +32,32 @@ public class Validate extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_validate);
 
         SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String storedPreference = preferences.getString(Config.EMAIL_SHARED_PREF, "");
+        Email = preferences.getString(Config.EMAIL_SHARED_PREF, "");
+        Inv = preferences.getString(Config.INVNUM, "");
+        Name = preferences.getString(Config.NAME, "");
+        Street = preferences.getString(Config.STREET, "");
+        City = preferences.getString(Config.CITY, "");
+        State = preferences.getString(Config.STATE, "");
+        Zip = preferences.getString(Config.ZIP, "");
+        Pasta = preferences.getString(Config.PASTA, "");
+        Sauce = preferences.getString(Config.SAUCE, "");
+        Panini = preferences.getString(Config.PANINI, "");
+        Dessert = preferences.getString(Config.DESSERT, "");
+        Party = preferences.getString(Config.SERVE, "");
+        Total = preferences.getString(Config.TOTAL, "");
 
-        City = (EditText) findViewById(R.id.City);
-        Zip = (EditText) findViewById(R.id.ZipCode);
-        State = (EditText) findViewById(R.id.State);
-        Phone = (EditText) findViewById(R.id.num);
-        Address = (EditText) findViewById(R.id.Address);
-
-
+        address = (TextView) findViewById(R.id.addr);
+        invoice = (TextView) findViewById(R.id.invoice);
+        summary = (TextView) findViewById(R.id.summ);
+        total = (TextView) findViewById(R.id.total);
+        String PushAddr = Street + "\n" + City + ", " + State + "   " + Zip;
+        String PushSumm = "Pasta: " + Pasta + "\n" + "Sauce: " + Sauce + "\n" + "Panini: " + Panini + "\n" + "Dessert: " + Dessert + "\n" + "Party Size: " + Party;
+        String PushInv = "Your Invoice Number is " + Inv;
+        String PushTotal = "Your Total is: $" + Total;
+        address.setText(PushAddr);
+        summary.setText(PushSumm);
+        invoice.setText(PushInv);
+        total.setText(PushTotal);
 
         Val = (Button) findViewById(R.id.Valid);
 
@@ -68,41 +78,15 @@ public class Validate extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if(v == Val){
-            sendCat();
+            Validate();
         }
     }
 
-    private void sendCat() {
-        radioGroup = (RadioGroup) findViewById(R.id.radio);
-        SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String storedPreference = preferences.getString(Config.INVNUM, "");
-
-        pass2 = true;
-        String address = Address.getText().toString();
-        String city = City.getText().toString();
-        String state = State.getText().toString();
-        String zip = Zip.getText().toString();
-        String phone = Phone.getText().toString();
-        String inv = storedPreference;
-
-
-        //Creating editor to store values to shared preferences
-        SharedPreferences.Editor editor = preferences.edit();
-
-        //Adding values to editor
-        editor.putString(Config.STREET, address);
-        editor.putString(Config.CITY, city);
-        editor.putString(Config.STATE, state);
-        editor.putString(Config.ZIP, zip);
-        editor.putString(Config.PHONE, phone);
-
-        //Saving values to editor
-        editor.commit();
-        String pass = Boolean.toString(pass2);
-        CatInfo(pass,address,city,state, zip, phone, inv);
+    private void Validate() {
+        CatInfo("2", Inv);
     }
 
-    private void CatInfo(String pass, String address, String city, String state, String zip, String phone, String inv) {
+    private void CatInfo(String pass, String inv) {
         class subCat extends AsyncTask<String, Void, String> {
             ProgressDialog loading;
             RegisterUserClass ruc = new RegisterUserClass();
@@ -118,9 +102,12 @@ public class Validate extends AppCompatActivity implements View.OnClickListener{
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 loading.dismiss();
+                if (s.trim().equalsIgnoreCase("Catering info updated!")) {
+                    Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+                    Intent ordering = new Intent(Validate.this, Validate.class);
+                    startActivity(ordering);
+                }
                 Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
-                Intent ordering = new Intent(Validate.this, Validate.class);
-                startActivity(ordering);
             }
 
             @Override
@@ -136,12 +123,11 @@ public class Validate extends AppCompatActivity implements View.OnClickListener{
                 data.put("inv",params[6]);
 
                 String result = ruc.sendPostRequest(CONFIRM_URL,data);
-                pass2 = false;
                 return  result;
             }
         }
 
         subCat ru = new subCat();
-        ru.execute(pass, address, city,state, zip, phone, inv);
+        ru.execute(pass,inv);
     }
 }

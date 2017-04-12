@@ -17,10 +17,10 @@
         <Button
             android:text="Order"
             android:layout_height="100dp"
-            android:id="@+id/button22"
+            android:id="@+id/order"
             android:layout_weight="0.26"
             android:layout_width="385dp"
-            android:onClick="order"/>
+            />
 
         <Button
             android:text="About Us"

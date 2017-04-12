@@ -11,12 +11,26 @@
     android:orientation="vertical"
     tools:context="com.mobileapp.design1.cuppasta.Validate">
 
-    <EditText
+    <TextView
+        android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/editText" />
+        android:id="@+id/addr" />
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/invoice" />
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/summ" />
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/total" />
     <Button
         android:text="Submit Order"
         android:layout_width="match_parent"

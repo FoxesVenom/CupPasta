@@ -68,6 +68,8 @@ public class order extends AppCompatActivity implements View.OnClickListener{
     private EditText num;
     private EditText email;
     private String invoice;
+    private String total;
+    private String result;
 
     private Button buttonOrder;
 
@@ -122,6 +124,7 @@ public class order extends AppCompatActivity implements View.OnClickListener{
         String dessertspinner_data = dessertspinner.getSelectedItem().toString();
         String num_data = num.getText().toString();
         String CUS_EMAIL = storedPreference;
+        String InvAsString = preferences.getString(Config.INVNUM, "");
 
         //Creating editor to store values to shared preferences
         SharedPreferences.Editor editor = preferences.edit();
@@ -136,10 +139,10 @@ public class order extends AppCompatActivity implements View.OnClickListener{
         //Saving values to editor
         editor.commit();
 
-        ordering(pastaspinner_data,saucespinner_data,paninispinner_data,dessertspinner_data, num_data, CUS_EMAIL);
+        ordering(pastaspinner_data,saucespinner_data,paninispinner_data,dessertspinner_data, num_data, CUS_EMAIL, InvAsString);
     }
 
-    private void ordering(String pastaspinner_data, String saucespinner_data, String paninispinner_data, String dessertspinner_data, String num_data, String CUS_EMAIL) {
+    private void ordering(String pastaspinner_data, String saucespinner_data, String paninispinner_data, String dessertspinner_data, String num_data, String CUS_EMAIL, String inv) {
         class subOrder extends AsyncTask<String, Void, String>{
             ProgressDialog loading;
             RegisterUserClass ruc = new RegisterUserClass();
@@ -156,12 +159,12 @@ public class order extends AppCompatActivity implements View.OnClickListener{
                 super.onPostExecute(s);
                 loading.dismiss();
 
-                if(s.trim().equalsIgnoreCase("Order has been successfully submitted")){
-                    Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+                if(result.trim().equalsIgnoreCase("Order has been successfully saved")){
+                    Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
                     Intent ordering = new Intent(order.this, Confirm.class);
                     startActivity(ordering);
                 }
-                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -176,32 +179,41 @@ public class order extends AppCompatActivity implements View.OnClickListener{
                 data.put("Dessert",params[3]);
                 data.put("Serving",params[4]);
                 data.put("CUS_EMAIL",params[5]);
+                data.put("inv",params[6]);
 
-                String result = ruc.sendPostRequest(ORDER_URL,data);
+                result = ruc.sendPostRequest(ORDER_URL,data);
 
 
                 try {
-                    JSONObject jsonObject = new JSONObject();
+                    JSONObject jsonObject = new JSONObject(result);
                     result = jsonObject.getString("success");
-                    invoice = jsonObject.getString("invnum");
-                    SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME,Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
+                    if(result.trim().equalsIgnoreCase("Order has been successfully saved")) {
+                        invoice = jsonObject.getString("invnum");
+                        total = jsonObject.getString("total");
+                        SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        //Toast.makeText(getApplicationContext(), "pl", Toast.LENGTH_LONG).show();
 
-                    //Adding values to editor
-                    editor.putString(Config.INVNUM, invoice);
+                        //Adding values to editor
+                        editor.putString(Config.INVNUM, invoice);
+                        editor.putString(Config.TOTAL, total);
+                        editor.commit();
+                        return result;
+                    }
+                    else{
+                        //Toast.makeText(getApplicationContext(), "pl", Toast.LENGTH_LONG).show();
+                        return result;}
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-
-
-                return  result;
+                return result;
             }
         }
 
         subOrder ru = new subOrder();
-        ru.execute(pastaspinner_data,saucespinner_data,paninispinner_data,dessertspinner_data, num_data, CUS_EMAIL);
+        ru.execute(pastaspinner_data,saucespinner_data,paninispinner_data,dessertspinner_data, num_data, CUS_EMAIL, inv);
     }
 }
 

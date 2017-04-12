@@ -8,15 +8,40 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Button;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
+import android.widget.Button;
+import android.widget.Toast;
+import java.util.HashMap;
 
 
-public class HomeScreen extends AppCompatActivity {
 
+public class HomeScreen extends AppCompatActivity implements View.OnClickListener{
+    private int inv;
+    private Button buttonDel;
+    private static final String DELETE = "http://173.170.13.161/deleteorder.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-    }
+
+        buttonDel = (Button) findViewById(R.id.order);
+
+        buttonDel.setOnClickListener(HomeScreen.this);
+
+
+        }
+
+        //int inv = Integer.parseInt(storedPreference);
+
 
     public void order(View view)
     {
@@ -75,5 +100,97 @@ public class HomeScreen extends AppCompatActivity {
             logout();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        String storedPreference = preferences.getString(Config.INVNUM, "");
+        inv = Integer.parseInt(storedPreference);
+        if(v == buttonDel){
+            if (inv > 0) {
+                deleteOrder();
+            }
+            else {
+                Intent ordering = new Intent(HomeScreen.this, order.class);
+                startActivity(ordering);
+            }
+
+        }
+    }
+
+    private void deleteOrder() {
+        SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        String storedPreference = preferences.getString(Config.EMAIL_SHARED_PREF, "");
+
+        String CUS_EMAIL = storedPreference;
+        String InvAsString = preferences.getString(Config.INVNUM, "");
+
+        //Creating editor to store values to shared preferences
+        SharedPreferences.Editor editor = preferences.edit();
+
+        //Adding values to editor
+        editor.putString(Config.SERVE, "SERVE");
+        editor.putString(Config.PASTA, "PASTA");
+        editor.putString(Config.PANINI, "PANINI");
+        editor.putString(Config.DESSERT, "DESSERT");
+        editor.putString(Config.SAUCE, "SAUCE");
+        editor.putString(Config.PHONE, "1234567890");
+        editor.putString(Config.STREET, "STREET");
+        editor.putString(Config.ZIP, "12345");
+        editor.putString(Config.CITY, "CITY");
+        editor.putString(Config.STATE, "STATE");
+        editor.putString(Config.INVNUM, "0");
+        editor.putString(Config.PAYMENT, "PAY");
+
+
+    //Saving values to editor
+        editor.commit();
+
+        delete(InvAsString);
+    }
+
+    private void delete(String inv) {
+        class subDel extends AsyncTask<String, Void, String>{
+            ProgressDialog loading;
+            RegisterUserClass ruc = new RegisterUserClass();
+
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(HomeScreen.this, "Please Wait",null, true, true);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+
+                if(s.trim().equalsIgnoreCase("Old Order Deleted")){
+                    Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+                    Intent ordering = new Intent(HomeScreen.this, order.class);
+                    startActivity(ordering);
+                }
+                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+
+
+
+                HashMap<String, String> data = new HashMap<String,String>();
+                data.put("inv",params[0]);
+
+
+                String result = ruc.sendPostRequest(DELETE,data);
+
+                return result;
+            }
+        }
+
+        subDel ru = new subDel();
+        ru.execute(inv);
     }
 }

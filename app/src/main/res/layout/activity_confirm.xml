@@ -91,7 +91,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="text"
             android:ems="10"
             android:id="@+id/City"
             android:hint="City" />
@@ -100,20 +100,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/TextState"
-            tools:text="Enter Zip Code"
+            tools:text="Enter State"
             android:textStyle="normal|bold"
             tools:textColor="@android:color/darker_gray" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="text"
             android:ems="10"
             android:id="@+id/State"
             android:hint="State" />
 
         <TextView
-            android:text="-"
+            android:text="Enter Phone Number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/serving2"
@@ -138,7 +138,9 @@
 
         <RadioGroup
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/radio"
+            android:checkedButton="@+id/Card">
             <RadioButton
                 android:text="Card"
                 android:layout_width="match_parent"

@@ -51,5 +51,7 @@ public class Config {
 
     public static final String INVNUM = "0";
 
-    public static final String PAYMENT = "SERVE";
+    public static final String PAYMENT = "PAY";
+
+    public static final String TOTAL = "TOTAL";
 }
