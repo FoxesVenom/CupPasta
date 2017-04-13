@@ -12,28 +12,101 @@
     tools:context="com.mobileapp.design1.cuppasta.Validate">
 
     <TextView
-        android:text="TextView"
+        android:text="Catering Address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/addr" />
+        android:id="@+id/textView11"
+        tools:textColor="@color/colorPrimaryDark"
+        tools:textSize="24sp"
+        android:textStyle="normal|bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp" />
+
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/invoice" />
+        android:id="@+id/addr"
+        android:background="?attr/colorButtonNormal"
+        android:textColor="@android:color/black" />
+
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/summ" />
+        android:id="@+id/invoice"
+        tools:textColor="@android:color/holo_green_dark"
+        android:textStyle="normal|bold"
+        android:textSize="18sp"
+        android:textColor="@android:color/holo_green_dark" />
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/total" />
+        android:id="@+id/summ"
+        android:background="@android:color/darker_gray"
+        android:textColor="@color/colorAccent" />
+
+    <TextView
+        android:text="Catering Date and Time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView19"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_TextDateTime"
+        android:textColor="@android:color/black"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Change Date"
+            android:id="@+id/btn_datePicker"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Change Time"
+            android:id="@+id/btn_timePicker"
+            android:layout_below="@+id/btn_datePicker"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/total"
+        tools:textSize="30sp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="30sp" />
+
     <Button
         android:text="Submit Order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Valid" />
+
+    <Button
+        android:text="Cancel Order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancel" />
 </LinearLayout>
