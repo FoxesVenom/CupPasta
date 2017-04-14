@@ -12,6 +12,7 @@
     <string name="button_register">Register</string>
 
     <string-array name="pasta">
+        <item>None</item>
         <item>Mamma Rosa</item>
         <item>Spaghetti</item>
         <item>Rigatoni</item>
@@ -22,6 +23,7 @@
     </string-array>
 
     <string-array name="sauce">
+        <item>None</item>
         <item>Mamma Rosa</item>
         <item>Bolognese</item>
         <item>CupPasta</item>
@@ -32,12 +34,14 @@
     </string-array>
 
     <string-array name="dessert">
+        <item>None</item>
         <item>Tiramisu</item>
         <item>Chocolate Mousse</item>
         <item>Cannoli(Mini)</item>
     </string-array>
 
     <string-array name="panini">
+        <item>None</item>
         <item>Ciabatta Al Prosciutto Cotto</item>
         <item>Ciabatta Al Prosciutto Crudo</item>
         <item>Ciabatta Al Salame</item>

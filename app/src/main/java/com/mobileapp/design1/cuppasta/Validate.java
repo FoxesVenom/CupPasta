@@ -42,7 +42,8 @@ public class Validate extends AppCompatActivity implements View.OnClickListener{
     private String time;
 
 
-    private Button Val;
+    private Button Val, Can;
+    private static final String DELETE = "http://173.170.13.161/deleteorder.php";
     private static final String VALID_URL = "http://173.170.13.161/valid.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,10 @@ public class Validate extends AppCompatActivity implements View.OnClickListener{
         Val = (Button) findViewById(R.id.Valid);
 
         Val.setOnClickListener(Validate.this);
+        Can = (Button) findViewById(R.id.cancel);
+
+        Can.setOnClickListener(Validate.this);
+
     }
     public void gotoHome(View view)
     {
@@ -131,6 +136,8 @@ public class Validate extends AppCompatActivity implements View.OnClickListener{
         Total = preferences.getString(Config.TOTAL, "");
         if(v == Val){
             Validate();
+        }else if(v == Can){
+            deleteOrder();
         }
     }
 
@@ -234,5 +241,81 @@ public class Validate extends AppCompatActivity implements View.OnClickListener{
 
         subCat ru = new subCat();
         ru.execute(pass,inv, email, time);
+    }
+
+    private void deleteOrder() {
+        SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        String storedPreference = preferences.getString(Config.EMAIL_SHARED_PREF, "");
+
+        String CUS_EMAIL = storedPreference;
+        String InvAsString = preferences.getString(Config.INVNUM, "");
+
+        //Creating editor to store values to shared preferences
+        SharedPreferences.Editor editor = preferences.edit();
+
+        //Adding values to editor
+        editor.putString(Config.SERVE, "");
+        editor.putString(Config.PASTA, "");
+        editor.putString(Config.PANINI, "");
+        editor.putString(Config.DESSERT, "");
+        editor.putString(Config.SAUCE, "");
+        editor.putString(Config.PHONE, "1234567890");
+        editor.putString(Config.STREET, "STREET");
+        editor.putString(Config.ZIP, "12345");
+        editor.putString(Config.CITY, "CITY");
+        editor.putString(Config.STATE, "STATE");
+        editor.putString(Config.INVNUM, "0");
+        editor.putString(Config.PAYMENT, "PAY");
+
+
+        //Saving values to editor
+        editor.commit();
+
+        delete(InvAsString);
+    }
+
+    private void delete(String inv) {
+        class subDel extends AsyncTask<String, Void, String>{
+            ProgressDialog loading;
+            RegisterUserClass ruc = new RegisterUserClass();
+
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(Validate.this, "Please Wait",null, true, true);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+
+                if(s.trim().equalsIgnoreCase("Unfinished Order Canceled")){
+                    Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+                    Intent ordering = new Intent(Validate.this, HomeScreen.class);
+                    ordering.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(ordering);
+                }
+                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+
+
+
+                HashMap<String, String> data = new HashMap<String,String>();
+                data.put("inv",params[0]);
+
+
+                String result = ruc.sendPostRequest(DELETE,data);
+
+                return result;
+            }
+        }
+
+        subDel ru = new subDel();
+        ru.execute(inv);
     }
 }

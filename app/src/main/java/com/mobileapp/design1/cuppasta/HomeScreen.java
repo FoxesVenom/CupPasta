@@ -83,6 +83,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
         //Starting login activity
         Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
     @Override
@@ -106,7 +107,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String storedPreference = preferences.getString(Config.INVNUM, "");
-        Toast.makeText(getApplicationContext(),storedPreference,Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),storedPreference,Toast.LENGTH_LONG).show();
         //inv = Integer.parseInt(storedPreference);
         if(v == buttonDel){
             if (storedPreference != "0") {
@@ -137,11 +138,11 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         SharedPreferences.Editor editor = preferences.edit();
 
         //Adding values to editor
-        editor.putString(Config.SERVE, "SERVE");
-        editor.putString(Config.PASTA, "PASTA");
-        editor.putString(Config.PANINI, "PANINI");
-        editor.putString(Config.DESSERT, "DESSERT");
-        editor.putString(Config.SAUCE, "SAUCE");
+        editor.putString(Config.SERVE, "");
+        editor.putString(Config.PASTA, "");
+        editor.putString(Config.PANINI, "");
+        editor.putString(Config.DESSERT, "");
+        editor.putString(Config.SAUCE, "");
         editor.putString(Config.PHONE, "1234567890");
         editor.putString(Config.STREET, "STREET");
         editor.putString(Config.ZIP, "12345");
@@ -174,7 +175,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
                 super.onPostExecute(s);
                 loading.dismiss();
 
-                if(s.trim().equalsIgnoreCase("Old Order Deleted")){
+                if(s.trim().equalsIgnoreCase("Unfinished Order Canceled")){
                     Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
                     Intent ordering = new Intent(HomeScreen.this, order.class);
                     startActivity(ordering);

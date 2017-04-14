@@ -59,10 +59,10 @@ public class Reg extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void registerUser() {
-        String CUS_FNAME = editTextFname.getText().toString().trim().toLowerCase();
-        String CUS_LNAME = editTextLname.getText().toString().trim().toLowerCase();
-        String CUS_PHONE = editTextPhone.getText().toString().trim().toLowerCase();
-        String CUS_PASS = editTextPassword.getText().toString().trim().toLowerCase();
+        String CUS_FNAME = editTextFname.getText().toString().trim();
+        String CUS_LNAME = editTextLname.getText().toString().trim();
+        String CUS_PHONE = editTextPhone.getText().toString().trim();
+        String CUS_PASS = editTextPassword.getText().toString().trim();
         String CUS_EMAIL = editTextEmail.getText().toString().trim().toLowerCase();
 
         register(CUS_FNAME,CUS_LNAME,CUS_PHONE,CUS_PASS,CUS_EMAIL);
@@ -84,6 +84,12 @@ public class Reg extends AppCompatActivity implements View.OnClickListener{
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 loading.dismiss();
+                if (s.trim().trim().equalsIgnoreCase("successfully registered")){
+                    Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+                    Intent ordering = new Intent(Reg.this, MainActivity.class);
+                    ordering.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(ordering);
+                }
                 Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
             }
 
