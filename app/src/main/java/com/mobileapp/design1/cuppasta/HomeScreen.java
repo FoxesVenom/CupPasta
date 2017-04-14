@@ -106,10 +106,17 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String storedPreference = preferences.getString(Config.INVNUM, "");
-        inv = Integer.parseInt(storedPreference);
+        Toast.makeText(getApplicationContext(),storedPreference,Toast.LENGTH_LONG).show();
+        //inv = Integer.parseInt(storedPreference);
         if(v == buttonDel){
-            if (inv > 0) {
-                deleteOrder();
+            if (storedPreference != "0") {
+                if (storedPreference == ""){
+                    Intent ordering = new Intent(HomeScreen.this, order.class);
+                    startActivity(ordering);
+                }
+                else {
+                    deleteOrder();
+                }
             }
             else {
                 Intent ordering = new Intent(HomeScreen.this, order.class);
